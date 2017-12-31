@@ -68,5 +68,5 @@ def readQuotas(quotasFile):
 			quotasReader = csv.reader(csvfile)
 			header = next(quotasReader)
 			for row in quotasReader:
-				quotas[row[0]] = row[1]
+				quotas[row[0]] = row[-1]
 	return quotas

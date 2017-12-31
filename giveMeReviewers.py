@@ -19,7 +19,7 @@ def printByTPMS(bids, tpms, yesbidders, namesIds, quotas, assignments, papers):
 				quota = getQuota(namesIds, quotas, reviewer)
 				assignment = assignments[reviewer] if len(assignments) > 0 and reviewer in assignments else "0" if len(assignments) > 0 else ""
 				if score != "na" or bid != "nb":
-					print(paper, "\t", reviewer, "\t", tpms[paper][reviewer], "\t", bid, "\t", assignment)
+					print(paper, "\t", reviewer, "\t", tpms[paper][reviewer], "\t", bid, "\t", assignment, "\t", quota)
 		else:
 			print("No paper id " + paper + " in tpms scores")
 
@@ -33,7 +33,7 @@ def printByBids(bids, tpms, yesbidders, namesIds, quotas, assignments, papers):
 				quota = getQuota(quotas, namesIds, reviewer)
 				assignment = assignments[reviewer] if len(assignments) > 0 and reviewer in assignments else "0" if len(assignments) > 0 else ""
 				if score != "na" or bid != "nb":
-					print(paper, "\t", reviewer, "\t", bid, "\t", score, "\t", assignment)
+					print(paper, "\t", reviewer, "\t", bid, "\t", score, "\t", assignment, "\t", quota)
 		else:
 			print("No paper id " + paper + " in bids")
 
