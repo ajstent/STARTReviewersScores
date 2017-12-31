@@ -52,3 +52,7 @@ Sample bid and TPMS files are included and usage is demonstrated on them as foll
 100      Mog Roll        0.9133105       nb
 
 -----
+
+* add assignment information (for your track) so you know how "loaded" reviewers are:
+
+% python giveMeReviewers.py -bf bidsFile.csv -tf tpmsFile.csv -af assignmentsFile.csv -p 100 -t 

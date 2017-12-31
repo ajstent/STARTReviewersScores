@@ -5,6 +5,14 @@ import re
 def fixUpNames(listOfNamesIds):
 	return [re.sub(r'\s*\([^\)]+\)\s*', '', x) for x in listOfNamesIds]
 
+def makeNamesIdsMapping(listOfNamesIds, namesIds):
+	for nameId in listOfNamesIds:
+		name, id = nameId.split('(', 2)
+		id = id.strip()	
+		id = id.rstrip(')')
+		name = name.strip()
+		namesIds[name] = id
+
 # reads in the assignments csv; there should be one row per reviewer, NOT one row per submission
 def readAssignments(assignmentsFile):
 	assignments = {}
@@ -19,13 +27,15 @@ def readAssignments(assignmentsFile):
 # reads in the TPMS csv; there should be one row per submission, NOT one row per reviewer
 def readTPMS(tpmsFile):
 	tpms = {}
+	namesIds = {}
 	if tpmsFile != "":
 		with open(tpmsFile, encoding='utf-8', errors='ignore') as csvfile:
 			tpmsReader = csv.reader(csvfile)
 			header = next(tpmsReader)
 			for row in tpmsReader:
+				makeNamesIdsMapping(row[1::2], namesIds)
 				tpms[row[0]] = dict(zip(fixUpNames(row[1::2]), row[2::2]))
-	return tpms
+	return tpms, namesIds
 
 # finds bidders who entered "yes" bids 
 def findYesBidders(bids):
@@ -46,3 +56,14 @@ def readBids(bidsFile):
 			for row in bidsReader:
 				bids[row[0]] = dict(zip(header[1:], row[1:]))
 	return bids
+
+# reads in the quotas CSV, one row per reviewer
+def readQuotas(quotasFile):
+	quotas = {}
+	if quotasFile != "":
+		with open(quotasFile, encoding='utf-8', erros='ignore') as csvfile:
+			quotasReader = csv.reader(csvfile)
+			header = next(quotasReader)
+			for row in quotasReader:
+				quotas[row[0]] = row[1]
+	return quotas
