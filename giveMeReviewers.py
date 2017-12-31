@@ -53,8 +53,6 @@ bids = readers.readBids(args.bidsFile)
 yesbidders = readers.findYesBidders(bids)
 tpms, namesIds = readers.readTPMS(args.tpmsFile)
 quotas = readers.readQuotas(args.quotasFile)
-print(quotas)
-print (namesIds)
 assignments = readers.readAssignments(args.assignmentsFile)
 if args.byTPMS == True:
 	papers = tpms.keys() if len(args.papers) == 0 else args.papers

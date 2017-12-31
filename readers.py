@@ -7,11 +7,14 @@ def fixUpNames(listOfNamesIds):
 
 def makeNamesIdsMapping(listOfNamesIds, namesIds):
 	for nameId in listOfNamesIds:
-		name, id = nameId.split('(', 2)
-		id = id.strip()	
-		id = id.rstrip(')')
-		name = name.strip()
-		namesIds[name] = id
+		try:
+			name, id = nameId.split('(', 2)
+			id = id.strip()	
+			id = id.rstrip(')')
+			name = name.strip()
+			namesIds[name] = id
+		except:
+			pass
 
 # reads in the assignments csv; there should be one row per reviewer, NOT one row per submission
 def readAssignments(assignmentsFile):
@@ -61,7 +64,7 @@ def readBids(bidsFile):
 def readQuotas(quotasFile):
 	quotas = {}
 	if quotasFile != "":
-		with open(quotasFile, encoding='utf-8', erros='ignore') as csvfile:
+		with open(quotasFile, encoding='utf-8', errors='ignore') as csvfile:
 			quotasReader = csv.reader(csvfile)
 			header = next(quotasReader)
 			for row in quotasReader:
